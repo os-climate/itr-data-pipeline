@@ -11,6 +11,15 @@ Sphinx = "*"
 [packages]
 src = {editable = true, path = "./"}
 awscli = "*"
+python_dotenv = "*"
+numpy = "*"
+pandas = "*"
+boto3 = "*"
+osc-ingest-tools = "*"
+openpyxl = "*"
+pint = "*"
+pint_pandas = "*"
+openscm_units = "*"
 
 [requires]
 python_version = "3.8"
