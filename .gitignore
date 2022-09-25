@@ -89,3 +89,4 @@ target/
 
 # Mypy cache
 .mypy_cache/
+data/external/~$OECM_EI_and_production_benchmarks_v2.xlsx
