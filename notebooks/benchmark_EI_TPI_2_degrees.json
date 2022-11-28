@@ -422,7 +422,7 @@
       {
         "sector": "Aluminium",
         "region": "Global",
-        "benchmark_metric": "tCO2 / t aluminium",
+        "benchmark_metric": "t CO2 /(t Aluminum)",
         "scenario name": "TPI 2 Degrees",
         "release date": "2021-02-01",
         "projections_nounits": [
@@ -559,7 +559,7 @@
       {
         "sector": "Paper",
         "region": "Global",
-        "benchmark_metric": "t CO2 per tof pulp, paper and paperboard",
+        "benchmark_metric": "t CO2/(t Paper)",
         "scenario name": "TPI 2 Degrees",
         "release date": "2021-02-01",
         "projections_nounits": [
@@ -837,7 +837,7 @@
       {
         "sector": "Diversified Mining",
         "region": "Global",
-        "benchmark_metric": "tCO2 / (t Copper)",
+        "benchmark_metric": "t CO2 / (t Copper)",
         "scenario name": "TPI 2 Degrees",
         "release date": "2021-02-01",
         "projections_nounits": [

@@ -7,7 +7,9 @@ PintType.ureg = unit_registry
 ureg = unit_registry
 set_application_registry(unit_registry)
 
-def __init__():
+# Try to insert these definitions only once...
+if 'Steel' not in ureg:
+    print("Initializing common units...")
     # openscm_units doesn't make it easy to set preprocessors.  This is one way to do it.
     unit_registry.preprocessors=[
          lambda s1: s1.replace('passenger km', 'passenger_km'),
