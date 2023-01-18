@@ -1,5 +1,5 @@
 # Define common units shared by ITR ingest notebooks
-from pint import set_application_registry, Quantity
+from pint import set_application_registry, Quantity, Context
 from pint_pandas import PintType
 from openscm_units import unit_registry
 
@@ -13,7 +13,6 @@ if 'Steel' not in ureg:
     # openscm_units doesn't make it easy to set preprocessors.  This is one way to do it.
     unit_registry.preprocessors=[
          lambda s1: s1.replace('passenger km', 'passenger_km'),
-         lambda s2: s2.replace('BoE', 'boe'),
     ]
 
     ureg.define("CO2e = CO2 = CO2eq = CO2_eq")
@@ -24,6 +23,7 @@ if 'Steel' not in ureg:
     ureg.define("aluminum = Al")
     ureg.define("Cement = [cement]")
     ureg.define("cement = Cement")
+    ureg.define("Coal = [coal]")
 
     # These are for later
     ureg.define('fraction = [] = frac')
@@ -35,7 +35,14 @@ if 'Steel' not in ureg:
     ureg.define("JPY = nan USD")
 
     ureg.define("btu = Btu")
-    ureg.define("boe = 5.712 GJ")
+    ureg.define("boe = 5.712 GJ = BoE")
+    ureg.define("Mbbl = 1000 bbl")
+    ureg.define("MMbbl = 1000000 bbl")
+    
+    ureg.define("scf = ft**3")
+    ureg.define("mscf = 1000 scf = Mscf")
+    ureg.define("mmscf = 1000000 scf = MMscf")
+    ureg.define("bcm = 1000000000 m**3")
 
     # Transportation activity
 
@@ -51,3 +58,11 @@ if 'Steel' not in ureg:
     ureg.define('billion = 1e9')
     ureg.define('trillion = 1e12')
     ureg.define('quadrillion = 1e15')
+    
+    i7y = Context('intensity')
+    i7y.add_transformation('Mscf CH4', 'kg CO2e', lambda ureg, x: x * ureg('54.87 kg CO2') / ureg('Mscf CH4'))
+    i7y.add_transformation('g CH4', 'g CO2e', lambda ureg, x: x * ureg('44 g CO2e') / ureg('16 g CH4'))
+    i7y.add_transformation('t Coal', 'MJ', lambda ureg, x: x * ureg('29288 MJ') / ureg('t Coal'))
+    i7y.add_transformation('t Coal', 't CO2e', lambda ureg, x: x * ureg('2.86 t CO2e') / ureg('t Coal'))
+    ureg.add_context(i7y)
+    ureg.enable_contexts('intensity')
