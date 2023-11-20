@@ -6,6 +6,10 @@
 
 version: 2
 updates:
+  # prettier-ignore
+  - package-ecosystem: "pip"  # See documentation for possible values
+    # prettier-ignore
+    directory: "/"  # Location of package manifests
   - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
     commit-message:
