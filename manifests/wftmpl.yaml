@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:line-length
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
@@ -56,7 +58,9 @@ spec:
           - --config
           - .jupyter/jupyter_nbconvert_config.py
           - "notebooks/{{inputs.parameters.notebook}}"
-        # If using different image than built by https://github.com/AICoE/s2i-custom-notebook, please change or remote the workingDir settings
+        # If using different image than built by:
+        # https://github.com/AICoE/s2i-custom-notebook
+        # please change or remote the workingDir settings
         workingDir: /opt/app-root/backup
         volumeMounts:
           - name: local-data-storage
