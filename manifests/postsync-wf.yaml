@@ -11,7 +11,7 @@ spec:
     - metadata:
         name: local-data-storage
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: ['ReadWriteOnce']
         resources:
           requests:
             storage: 10Gi
