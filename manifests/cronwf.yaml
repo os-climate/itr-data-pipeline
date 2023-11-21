@@ -1,17 +1,18 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
   generateName: <CHANGE_ME>
   name: <CHANGE_ME>
 spec:
-  schedule: "0 0 1 * *"
-  concurrencyPolicy: "Replace"
+  schedule: '0 0 1 * *'
+  concurrencyPolicy: 'Replace'
   workflowSpec:
     volumeClaimTemplates:
       - metadata:
           name: local-data-storage
         spec:
-          accessModes: ["ReadWriteOnce"]
+          accessModes: ['ReadWriteOnce']
           resources:
             requests:
               storage: 10Gi
