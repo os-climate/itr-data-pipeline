@@ -24,6 +24,7 @@ pandas-profiling = "*"
 openscm-units = "*"
 grpcio-health-checking = "==1.48.2"
 python-pachyderm = "*"
+setuptools = "==65.5.1"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
