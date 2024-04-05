@@ -43,20 +43,20 @@
     },
     "boto3": {
       "hashes": [
-        "sha256:ca9b04fc2c75990c2be84c43b9d6edecce828960fc27e07ab29036587a1ca635",
-        "sha256:d1135647309b89376a014d21407aabfa322998206175f2297def812bf4d824a9"
+        "sha256:1eb4c548118b5fc5e018dee956fd33e6fb249cd1f2def85f1bba816aef4d9f3e",
+        "sha256:96e9890ebe7cd823b5f4976dd676e112c000c6528c28e20a2f274590589dd18b"
       ],
       "index": "pypi",
       "markers": "python_version >= '3.7'",
-      "version": "==1.29.4"
+      "version": "==1.29.7"
     },
     "botocore": {
       "hashes": [
-        "sha256:3ee73c0d93bdb944d0c46772f08f09cdcf25ef58bd86962e6f4a24e531198bfa",
-        "sha256:6bfa75e28c9ad0321cefefa51b00ff233b16b2416f8b95229796263edba45a39"
+        "sha256:58b33d02cafa23461c8a9d211b30e8cded992380a84de409379fd02811fa3e11",
+        "sha256:c6795c731b04c8e3635588c44cfd1a4462fc5987859195522c96812cf3eceff9"
       ],
       "markers": "python_version >= '3.7'",
-      "version": "==1.32.4"
+      "version": "==1.32.7"
     },
     "certifi": {
       "hashes": [
@@ -1195,7 +1195,7 @@
         "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
         "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"
       ],
-      "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+      "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
       "version": "==2.8.2"
     },
     "python-dotenv": {
@@ -1327,11 +1327,11 @@
     },
     "s3transfer": {
       "hashes": [
-        "sha256:10d6923c6359175f264811ef4bf6161a3156ce8e350e705396a7557d6293c33a",
-        "sha256:fd3889a66f5fe17299fe75b82eae6cf722554edca744ca5d5fe308b104883d2e"
+        "sha256:baa479dc2e63e5c2ed51611b4d46cdf0295e2070d8d0b86b22f335ee5b954986",
+        "sha256:e8d6bd52ffd99841e3a57b34370a54841f12d3aab072af862cdcc50955288002"
       ],
       "markers": "python_version >= '3.7'",
-      "version": "==0.7.0"
+      "version": "==0.8.0"
     },
     "scipy": {
       "hashes": [
@@ -1386,7 +1386,7 @@
         "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
         "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
       ],
-      "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+      "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
       "version": "==1.16.0"
     },
     "sqlalchemy": {
