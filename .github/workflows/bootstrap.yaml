@@ -21,7 +21,7 @@ jobs:
       - name: "Checkout primary repository"
         uses: actions/checkout@v4
 
-      - name: "Pull workflows from central repository"
+      - name: "Pull devops content from repository"
         uses: actions/checkout@v4
         with:
           repository: "os-climate/devops-toolkit"
@@ -173,17 +173,20 @@ jobs:
               "41898282+github-actions[bot]@users.noreply.github.com"
           fi
 
-          # Remove any stale copy of the upstream repository
-          if [ -d "$DEVOPS_DIR" ]; then
-            echo "Removing existing copy of upstream repository: $DEVOPS_DIR"
-            rm -Rf "$DEVOPS_DIR"
-          fi
+          # Only if NOT running in GitHub
+          # (checkout is otherwise performed by earlier steps)
+          if [ -z ${GITHUB_RUN_ID+x} ]; then
+            # Remove any stale local copy of the upstream repository
+            if [ -d "$DEVOPS_DIR" ]; then
+              rm -Rf "$DEVOPS_DIR"
+            fi
 
-          printf "Cloning DevOps repository into: %s" "$DEVOPS_DIR"
-          if (git clone "$DEVOPS_REPO" "$DEVOPS_DIR" > /dev/null 2>&1); then
-              echo " [success]"
-          else
-              echo " [failed]"; exit 1
+            printf "Cloning DevOps repository into: %s" "$DEVOPS_DIR"
+            if (git clone "$DEVOPS_REPO" "$DEVOPS_DIR" > /dev/null 2>&1); then
+                echo " [success]"
+            else
+                echo " [failed]"; exit 1
+            fi
           fi
 
           # Process upstream DevOps repository content and update
@@ -253,10 +256,13 @@ jobs:
             echo "Commit failed; aborting"; exit 1
           else
             # Push branch to remote repository
-            echo "Pushing local update branch to remote"
             git push --set-upstream origin "$AUTOMATION_BRANCH"
 
-            # Create the pull request in GitHub
+            # ToDo: need to verify if we are running in a GHA
+            # gh pr create --head ModeSevenIndustrialSolutions/test-bootstrap --title \
+            #  "Chore: Pull DevOps tooling from upstream repository" \
+            #  --body 'Automated by a GitHub workflow: bootstrap.yaml'
+
             gh pr create --repo ModeSevenIndustrialSolutions/test-bootstrap \
             --head "$AUTOMATION_BRANCH" --title \
             "Chore: Pull DevOps tooling from upstream repository" \
