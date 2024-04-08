@@ -51,7 +51,7 @@ jobs:
           perform_operation() {
             FS_PATH="$1"
             if [ ! -f "$DEVOPS_DIR/$FS_PATH" ] && [ ! -d "$DEVOPS_DIR/$FS_PATH" ]; then
-              echo "Skipping missing element: $DEVOPS_DIR/$FS_PATH"
+              echo "Skipping missing upstream element: $DEVOPS_DIR/$FS_PATH"
               return 1
             fi
             # Elements excluded from processing return exit status 1
