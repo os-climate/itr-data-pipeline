@@ -24,7 +24,7 @@ pandas-profiling = "*"
 openscm-units = "*"
 grpcio-health-checking = "==1.48.2"
 python-pachyderm = "*"
-setuptools = "==65.5.1"
+setuptools = "==69.2.0"
 pillow = "==10.3.0"
 
 [requires]
