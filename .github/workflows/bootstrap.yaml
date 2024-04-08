@@ -49,14 +49,18 @@ jobs:
 
           # Allows for selective opt-out components on a per-path basis
           perform_operation() {
-            FILEPATH="$1"
+            FS_PATH="$1"
+            if [ ! -f "$FS_PATH" ] && [ ! -d "$FS_PATH" ]; then
+              echo "Skipping missing upstream element at: $FS_PATH"
+              return 1
+            fi
             # Elements excluded from processing return exit status 1
             if [ ! -f "$EXCLUDE_FILE" ]; then
               return 0
-            elif [ "$FILEPATH" = "$EXCLUDE_FILE" ]; then
+            elif [ "$FS_PATH" = "$EXCLUDE_FILE" ]; then
               # The exclusion file itself is never updated by automation
               return 1
-            elif (grep -Fxq "$FILEPATH" "$EXCLUDE_FILE" > /dev/null); then
+            elif (grep -Fxq "$FS_PATH" "$EXCLUDE_FILE" > /dev/null); then
               # Element listed; exclude from processing
               return 1
             else
