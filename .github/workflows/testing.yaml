@@ -1,10 +1,5 @@
 ---
-# This workflow will install Python dependencies
-# run tests and lint with a variety of Python versions
-# For more information see:
-# https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: "⛔️ Security auditing (Matrix)"
+name: "🧪 Unit tests (Matrix)"
 
 # yamllint disable-line rule:truthy
 on:
@@ -22,8 +17,8 @@ jobs:
     # yamllint disable-line rule:line-length
     uses: os-climate/devops-reusable-workflows/.github/workflows/pyproject-toml-fetch-matrix.yaml@main
 
-  build:
-    name: "Audit Python dependencies"
+  testing:
+    name: "Run unit tests"
     needs: [parse-project-metadata]
     runs-on: ubuntu-latest
     # Don't run when pull request is merged
@@ -36,7 +31,7 @@ jobs:
       - name: "Checkout repository"
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: "Setup Python ${{ matrix.python-version }}"
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -48,13 +43,19 @@ jobs:
 
       - name: "Install dependencies"
         run: |
-          pip install --upgrade pip
-          pdm lock
+          python -m pip install --upgrade pip
           pdm export -o requirements.txt
-          python -m pip install -r requirements.txt
-          python -m pip install .
-          pip install --upgrade setuptools
-          pdm list --graph
+          pip install -r requirements.txt
+          pip install --upgrade pytest
+          pip install .
 
-      - name: "Run: pip-audit"
-        uses: pypa/gh-action-pip-audit@v1.0.8
+      - name: "Run unit tests: pytest"
+        run: |
+          if [ -d test ]; then
+            python -m pytest test
+          elif [ -d tests ]; then
+            python -m pytest tests
+          else
+            echo "No test/tests directory could be found"
+            echo "Aborting testing without error"; exit 0
+          fi
