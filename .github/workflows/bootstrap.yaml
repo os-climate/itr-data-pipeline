@@ -31,6 +31,7 @@ jobs:
         id: update-repository
         env:
           GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         # yamllint disable rule:line-length
         run: |
           ### SHELL CODE START ###
