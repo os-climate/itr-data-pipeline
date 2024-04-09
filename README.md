@@ -25,4 +25,4 @@ If you have questions, please file [Issues](https://github.com/os-climate/itr-da
 
 ---
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+Project based on the [cookiecutter](https://drivendata.github.io/cookiecutter-data-science/) data science project template. #cookiecutterdatascience
