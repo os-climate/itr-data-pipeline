@@ -10,7 +10,7 @@ Hey, Kebechet!
 
 Create a new major release, please.
 
-**IMPORTANT NOTES**
+## Important Notes
 
 - _If [Khebut GitHub App Bot](https://github.com/apps/khebhut) is installed, this issue will trigger a major release. The bot will open a Pull Request to update the CHANGELOG, fix the opened issue and create a tag._
 
