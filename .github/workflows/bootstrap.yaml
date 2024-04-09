@@ -45,13 +45,17 @@ jobs:
           EXCLUDE_FILE=".devops-exclusions"
           DEVOPS_REPO='git@github.com:os-climate/devops-toolkit.git'
 
+          # Content folder defines the files and folders to update
+          FILES="$DEVOPS_DIR/content/files.txt"
+          FOLDERS="$DEVOPS_DIR/content/folders.txt"
+
           # Define functions
 
           # Allows for selective opt-out components on a per-path basis
           perform_operation() {
             FS_PATH="$1"
-            if [ ! -f "$DEVOPS_DIR/$FS_PATH" ] && [ ! -d "$DEVOPS_DIR/$FS_PATH" ]; then
-              echo "Skipping missing upstream element: $DEVOPS_DIR/$FS_PATH"
+            if [ ! -f "$FS_PATH" ] && [ ! -d "$FS_PATH" ]; then
+              echo "Skipping missing upstream element at: $FS_PATH"
               return 1
             fi
             # Elements excluded from processing return exit status 1
@@ -195,32 +199,42 @@ jobs:
 
           # Process upstream DevOps repository content and update
 
-          # First add file LOCATIONS from the upstream repository root folder
-          LOCATIONS=".pre-commit-config.yaml .prettierignore .gitignore .devops-exclusions"
+          LOCATIONS=""
+          # Populate list of files to be updated/sourced
+          while read -ra LINE;
+          do
+            for FILE in "${LINE[@]}";
+            do
+              LOCATIONS+="$FILE "
+            done
+          done < "$FILES"
 
-          # Then process the contents of the following folders
-          FOLDERS=".github .github/workflows scripts scripts/git-bulk"
-          for FOLDER in ${FOLDERS}; do
-            # Check to see if this folder should be skipped
-            if (perform_operation "$FOLDER"); then
-              # If necessary, create target folder
-              if [ ! -d "$FOLDER" ]; then
-                echo "Creating target folder: $FOLDER"
-                mkdir "$FOLDER"
-              fi
-              # Add folder contents to list of file LOCATIONS
-              FILES=$(cd "$DEVOPS_DIR/$FOLDER"; find . -maxdepth 1 -type f -exec basename {} \;)
-              for LOCATION in $FILES; do
-                # Also check if individual files in the folder are excluded
-                if (perform_operation "$FOLDER/$LOCATION"); then
-                  LOCATIONS+=" $FOLDER/$LOCATION"
+          # Gather files from specified folders and append to locations list
+          while read -ra LINE;
+          do
+            for FOLDER in "${LINE[@]}";
+            do
+              # Check to see if this folder should be skipped
+              if (perform_operation "$FOLDER"); then
+                # If necessary, create target folder
+                if [ ! -d "$FOLDER" ]; then
+                  echo "Creating target folder: $FOLDER"
+                  mkdir "$FOLDER"
                 fi
-              done
-            else
-              echo "Opted out of folder: $FOLDER"
-              continue
-            fi
-          done
+                # Add folder contents to list of file LOCATIONS
+                FILES=$(cd "$DEVOPS_DIR/$FOLDER"; find . -maxdepth 1 -type f -exec basename {} \;)
+                for LOCATION in $FILES; do
+                  # Also check if individual files in the folder are excluded
+                  if (perform_operation "$FOLDER/$LOCATION"); then
+                    LOCATIONS+=" $FOLDER/$LOCATION"
+                  fi
+                done
+              else
+                echo "Opted out of folder: $FOLDER"
+                continue
+              fi
+            done;
+          done < "$FOLDERS"
 
           # Copy specified files into repository root
           for LOCATION in ${LOCATIONS}; do
