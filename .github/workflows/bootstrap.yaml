@@ -33,17 +33,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         # yamllint disable rule:line-length
         run: |
-          ### SHELL CODE START ###
+          #SHELLCODESTART
 
-          set -eu -o pipefail
+          set -euo pipefail
+          # set -x
 
           # Define variables
 
           DEVOPS_DIR=".devops"
           AUTOMATION_BRANCH="update-devops-tooling"
           REPO_DIR=$(git rev-parse --show-toplevel)
+          GIT_ORIGIN=$(git config --get remote.origin.url)
+          REPO_NAME=$(basename -s .git "$GIT_ORIGIN")
           EXCLUDE_FILE=".devops-exclusions"
           DEVOPS_REPO='git@github.com:os-climate/devops-toolkit.git'
+          HEAD_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
           # Content folder defines the files and folders to update
           FILES="$DEVOPS_DIR/content/files.txt"
@@ -51,11 +55,22 @@ jobs:
 
           # Define functions
 
+          perform_folder_operation() {
+            FS_PATH="$1"
+            if [ -d "$DEVOPS_DIR"/"$FS_PATH" ]; then
+              echo "Scanning target folder content at: $FS_PATH"
+              return 0
+            else
+              echo "Upstream folder NOT found: $FS_PATH [skipping]"
+              return 1
+            fi
+          }
+
           # Allows for selective opt-out components on a per-path basis
           perform_operation() {
             FS_PATH="$1"
-            if [ ! -f "$FS_PATH" ] && [ ! -d "$FS_PATH" ]; then
-              echo "Skipping missing upstream element at: $FS_PATH"
+            if [ ! -f "$DEVOPS_DIR"/"$FS_PATH" ]; then
+              echo "Skipping missing upstream file at: $FS_PATH"
               return 1
             fi
             # Elements excluded from processing return exit status 1
@@ -73,17 +88,15 @@ jobs:
             fi
           }
 
-          # Decides whether a file should be updated
+          # Only updates file if it has changed
           selective_file_copy() {
             # Receives a single file path as argument
-            if (perform_operation "$1"); then
-              SHA_SRC=$(sha1sum $DEVOPS_DIR/"$1" | awk '{print $1}')
-              SHA_DST=$(sha1sum "$1" 2>/dev/null | awk '{print $1}' || :)
-              if [ "$SHA_SRC" != "$SHA_DST" ]; then
-                echo "Copying: $1"
-                cp "$DEVOPS_DIR/$1" "$1"
-                git add "$1"
-              fi
+            SHA_SRC=$(sha1sum "$DEVOPS_DIR"/"$1" | awk '{print $1}')
+            SHA_DST=$(sha1sum "$1" 2>/dev/null | awk '{print $1}' || :)
+            if [ "$SHA_SRC" != "$SHA_DST" ]; then
+              echo "Copying: $1"
+              cp "$DEVOPS_DIR/$1" "$1"
+              git add "$1"
             fi
           }
 
@@ -111,7 +124,7 @@ jobs:
             fi
           }
 
-          check_authors() {
+          check_prs() {
             # Define users to check for pre-existing pull requests
             AUTOMATION_USER="github-actions[bot]"
             if [[ -n ${GH_TOKEN+x} ]]; then
@@ -135,9 +148,34 @@ jobs:
                 echo "Failed to checkout pull request"; exit 1
               fi
             done
+            return 1
+          }
+
+          # Check if script is running in GHA workflow
+          in_github() {
+            if [ -z ${GITHUB_RUN_ID+x} ]; then
+              echo "Script is NOT running in GitHub"
+              return 1
+            else
+              echo "Script is running in GitHub"
+              return 0
+            fi
+          }
+
+          # Check if user is logged into GitHub
+          logged_in_github() {
+            if (gh auth status); then
+              echo "Logged in and authenticated to GitHb"
+              return 0
+            else
+              echo "Not logged into GitHub, some script operations unavailable"
+              return 1
+            fi
           }
 
           # Main script entry point
+
+          echo "Repository name and HEAD branch: $REPO_NAME [$HEAD_BRANCH]"
 
           # Ensure working from top-level of GIT repository
           CURRENT_DIR=$(pwd)
@@ -155,23 +193,6 @@ jobs:
           #   git stash -q
           # fi
 
-          # Verify user is logged into GitHub
-          if (gh auth status); then
-            GH_AUTH="true"
-          else
-            echo "Not logged into GitHub, some script operations unavailable"
-            GH_AUTH="false"
-          fi
-
-          if [ "$GH_AUTH" = "true" ] && ! (check_authors); then
-            # No existing open pull requests found for this repository
-            echo "Removing remote branch if it exists: $AUTOMATION_BRANCH"
-            git push origin --delete "$AUTOMATION_BRANCH" > /dev/null 2>&1 || :
-            git branch -D "$AUTOMATION_BRANCH" || :
-            echo "Creating local branch for automated update"
-            git checkout -b "$AUTOMATION_BRANCH"
-          fi
-
           # Configure GIT environment only if NOT already configured
           # i.e. when running in a GitHub Actions workflow
           TEST=$(git config -l > /dev/null 2>&1)
@@ -181,14 +202,26 @@ jobs:
               "41898282+github-actions[bot]@users.noreply.github.com"
           fi
 
+
+          if ! (check_prs); then
+            # No existing open pull requests found for this repository
+
+            # Remove remote branch if it exists
+            git push origin --delete "$AUTOMATION_BRANCH" > /dev/null 2>&1 || :
+            git branch -D "$AUTOMATION_BRANCH" || :
+            git checkout -b "$AUTOMATION_BRANCH"
+          else
+            # The -B flag swaps branch and creates it if NOT present
+            git checkout -B "$AUTOMATION_BRANCH"
+          fi
+
           # Only if NOT running in GitHub
           # (checkout is otherwise performed by earlier steps)
-          if [ -z ${GITHUB_RUN_ID+x} ]; then
+          if ! (in_github); then
             # Remove any stale local copy of the upstream repository
             if [ -d "$DEVOPS_DIR" ]; then
               rm -Rf "$DEVOPS_DIR"
             fi
-
             printf "Cloning DevOps repository into: %s" "$DEVOPS_DIR"
             if (git clone "$DEVOPS_REPO" "$DEVOPS_DIR" > /dev/null 2>&1); then
                 echo " [success]"
@@ -215,7 +248,7 @@ jobs:
             for FOLDER in "${LINE[@]}";
             do
               # Check to see if this folder should be skipped
-              if (perform_operation "$FOLDER"); then
+              if (perform_folder_operation "$FOLDER"); then
                 # If necessary, create target folder
                 if [ ! -d "$FOLDER" ]; then
                   echo "Creating target folder: $FOLDER"
@@ -255,18 +288,21 @@ jobs:
 
           # Next step is only performed if running as GitHub Action
           if [[ -n ${GH_TOKEN+x} ]]; then
-            # Script is running in a GitHub Acsions workflow
+            # Script is running in a GitHub actions workflow
             # Set outputs for use by the next actions/steps
+            # shellcheck disable=SC2129
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "branchname=$AUTOMATION_BRANCH" >> "$GITHUB_OUTPUT"
+            echo "headbranch=$HEAD_BRANCH" >> "$GITHUB_OUTPUT"
             # Move to the next workflow step to raise the PR
+            git push --set-upstream origin "$AUTOMATION_BRANCH"
             exit 0
           fi
 
           # If running shell code locally, continue to raise the PR
 
           # Reinstate exit on unbound variables
-          set -eu -o pipefail
+          set -euo pipefail
 
           git status
           if ! (git commit -as -S -m "Chore: Update DevOps tooling from central repository [skip ci]" \
@@ -275,32 +311,26 @@ jobs:
           else
             # Push branch to remote repository
             git push --set-upstream origin "$AUTOMATION_BRANCH"
-
-            # ToDo: need to verify if we are running in a GHA
-            # gh pr create --head ModeSevenIndustrialSolutions/test-bootstrap --title \
-            #  "Chore: Pull DevOps tooling from upstream repository" \
-            #  --body 'Automated by a GitHub workflow: bootstrap.yaml'
-
-            gh pr create --repo ModeSevenIndustrialSolutions/test-bootstrap \
-            --head "$AUTOMATION_BRANCH" --title \
-            "Chore: Pull DevOps tooling from upstream repository" \
+            # Create PR request
+            gh pr create \
+             --title "Chore: Pull DevOps tooling from upstream repository" \
             --body 'Automated by a GitHub workflow: bootstrap.yaml'
           fi
           # echo "Unstashing unstaged changes, if any exist"
           # git stash pop -q || :
-          ### SHELL CODE END ###
+          #SHELLCODEEND
 
       - name: Create Pull Request
         if: steps.update-repository.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+        # env:
+        #   GITHUB_TOKEN: ${{ github.token }}
         with:
           # Note: Requires a specific/defined Personal Access Token
           token: ${{ secrets.ACTIONS_WORKFLOW }}
           commit-message: "Chore: Update DevOps tooling from central repository [skip ci]"
           signoff: "true"
-          base: main
+          base: ${{ steps.update-repository.outputs.headbranch }}
           branch: ${{ steps.update-repository.outputs.branchname }}
           delete-branch: true
           title: "Chore: Update DevOps tooling from central repository [skip ci]"
