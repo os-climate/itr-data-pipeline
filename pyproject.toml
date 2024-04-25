@@ -1,0 +1,105 @@
+[project]
+name = "itr-data-pipeline"
+version = "v0.0.1"
+description = "ITR Data Pipeline."
+authors = [
+  { name = "Michael Tiemann", email = "72577720+MichaelTiemannOSC@users.noreply.github.com" },
+]
+requires-python = "<3.11,>=3.10"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+keywords = ["Climate", "ITR", "Finance"]
+
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: Unix",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Office/Business :: Financial",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Software Development",
+]
+
+dependencies = [
+    "sphinx",
+    "awscli",
+    "python_dotenv",
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "boto3",
+    "osc-ingest-tools",
+    "openpyxl",
+    "Pint",
+    "Pint-Pandas",
+    "pandas-profiling",
+    "openscm-units",
+    "grpcio-health-checking",
+    "python-pachyderm",
+    "pillow"
+]
+
+[tool.setuptools.package-data]
+itr = [
+      "py.typed"
+      ]
+
+[project.urls]
+Homepage = "https://github.com/os-climate/itr-data-pipeline"
+Repository = "https://github.com/os-climate/itr-data-pipeline"
+Downloads = "https://github.com/os-climate/itr-data-pipeline/releases"
+"Bug Tracker" = "https://github.com/os-climate/itr-data-pipeline/issues"
+Documentation = "https://github.com/os-climate/itr-data-pipeline/tree/main/docs"
+"Source Code" = "https://github.com/os-climate/itr-data-pipeline"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.scripts]
+pre_release = "scripts/dev-versioning.sh"
+release = "scripts/release-versioning.sh"
+test = "pytest"
+tox = "tox"
+docs = { shell = "cd docs && mkdocs serve", help = "Start the dev server for doc preview" }
+lint = "pre-commit run --all-files"
+complete = { call = "tasks.complete:main", help = "Create autocomplete files for bash and fish" }
+
+[tool.pdm.dev-dependencies]
+test = ["pdm[pytest]", "pytest-cov"]
+tox = ["tox", "tox-pdm>=0.5"]
+docs = ["sphinx>=7.2.6", "sphinx-copybutton>=0.5.2"]
+dev = ["tox>=4.11.3", "tox-pdm>=0.7.0"]
+lint = ["pre-commit"]
+
+[tool.pytest.ini_options]
+testpaths = [
+    "test/",
+]
+addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 70"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+max-line-length = "120"
+extend-ignore = [
+  "E501",
+]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["test/*"]
+# relative_files = true
