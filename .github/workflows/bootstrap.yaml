@@ -193,24 +193,6 @@ jobs:
           #   git stash -q
           # fi
 
-          # Verify user is logged into GitHub
-          if (gh auth status); then
-            GH_AUTH="true"
-          else
-            echo "Not logged into GitHub, some script operations unavailable"
-            GH_AUTH="false"
-          fi
-
-          if [ "$GH_AUTH" = "true" ] && ! (check_authors); then
-            # No existing open pull requests found for this repository
-            echo "Removing remote branch if it exists: $AUTOMATION_BRANCH"
-            git push origin --delete "$AUTOMATION_BRANCH" > /dev/null 2>&1 || :
-            git branch -D "$AUTOMATION_BRANCH" || :
-          fi
-
-          echo "Creating local branch for automated update"
-          git checkout -b "$AUTOMATION_BRANCH"
-
           # Configure GIT environment only if NOT already configured
           # i.e. when running in a GitHub Actions workflow
           TEST=$(git config -l > /dev/null 2>&1)
