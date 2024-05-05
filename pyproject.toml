@@ -5,7 +5,7 @@ description = "Load Sectoral Decarbonization Approach (benchmarks) into Data Mes
 authors = [
   { name = "Michael Tiemann", email = "72577720+MichaelTiemannOSC@users.noreply.github.com" },
 ]
-requires-python = ">=3.9"
+requires-python = "<3.11,>=3.10"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 keywords = ["Climate", "ITR", "Finance"]
@@ -22,7 +22,6 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.9",
   "Topic :: Office/Business :: Financial",
   "Topic :: Scientific/Engineering",
   "Topic :: Software Development",
@@ -57,6 +56,11 @@ dependencies = [
   "xlrd==2.0.1",
 ]
 
+[tool.setuptools.package-data]
+itr = [
+      "py.typed"
+      ]
+
 [project.urls]
 Homepage = "https://github.com/os-climate/itr-data-pipeline"
 Repository = "https://github.com/os-climate/itr-data-pipeline"
@@ -86,7 +90,10 @@ dev = ["tox>=4.11.3", "tox-pdm>=0.7.0"]
 lint = ["pre-commit", "pyproject-flake8"]
 
 [tool.pytest.ini_options]
-testpaths = ["test/"]
+testpaths = [
+    "test/",
+]
+addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 70"
 
 [tool.black]
 line-length = 120
@@ -99,3 +106,11 @@ max-line-length = "120"
 extend-ignore = [
   "E501",
 ]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["test/*"]
+# relative_files = true

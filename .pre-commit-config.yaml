@@ -4,8 +4,7 @@ ci:
   skip:
     # pre-commit.ci cannot install WGET, so tomlint must be disabled
     - tomllint
-    # pre-commit.ci throws some error related to Docker!
-    - shellcheck
+    # - pre-commit-update
 
 exclude: |
   (?x)^(
@@ -14,6 +13,13 @@ exclude: |
   )$
 
 repos:
+
+  # - repo: https://gitlab.com/vojko.pribudic/pre-commit-update
+  #   rev: v0.1.0
+  #   hooks:
+  #     - id: pre-commit-update
+  #       args: [--dry-run]
+
   - repo: local
     hooks:
       - id: tomllint
@@ -25,12 +31,11 @@ repos:
         entry: scripts/tomllint.sh .
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
       - id: check-case-conflict
-      - id: check-docstring-first
       - id: check-executables-have-shebangs
       - id: check-json
       - id: check-merge-conflict
@@ -46,28 +51,24 @@ repos:
       - id: mixed-line-ending
         args: ["--fix=lf"]
       - id: name-tests-test
+        args: ["--pytest-test-first"]
       # Do not allow direct push to main/master branches
       - id: no-commit-to-branch
       # - id: pretty-format-json
       - id: requirements-txt-fixer
       - id: trailing-whitespace
 
-  - repo: https://github.com/pycqa/pydocstyle.git
-    rev: 6.3.0
-    hooks:
-      - id: pydocstyle
-
   # Autoformat: YAML, JSON, Markdown, etc.
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.1.0
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         args:
-          ["--ignore-unknown", "--no-error-on-unmatched-pattern", "!chart/**"]
+          ['--no-error-on-unmatched-pattern', '--ignore-unknown']
 
   # Lint: Markdown
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.37.0
+    rev: v0.39.0
     hooks:
       - id: markdownlint
         args: ["--fix"]
@@ -79,13 +80,9 @@ repos:
   #       args: ['--py37-plus']
 
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 23.11.0
+    rev: 24.4.0
     hooks:
       - id: black
-
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 23.11.0
-    hooks:
       - id: black-jupyter
 
   - repo: https://github.com/jorisroovers/gitlint
@@ -97,10 +94,10 @@ repos:
     rev: 2.1.1
     hooks:
       - id: bashate
-        args: ["--ignore=E006"]
+        args: ["--ignore=E006,E011"]
 
-  - repo: https://github.com/koalaman/shellcheck-precommit
-    rev: v0.9.0
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
     hooks:
       - id: shellcheck
       # Optionally only show errors and warnings
@@ -118,18 +115,24 @@ repos:
   #     ]
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
       - id: isort
+        args: ["--profile", "black"]
 
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.33.0
+    rev: v1.35.1
     hooks:
       - id: yamllint
-        args: [--strict]
+        args: [
+          "-d",
+          "{rules: {line-length: {max: 120}},
+          ignore-from-file: [.gitignore],
+          }",
+        ]
 
   - repo: https://github.com/Mateusz-Grzelinski/actionlint-py
-    rev: v1.6.26.11
+    rev: v1.6.27.13
     hooks:
       - id: actionlint
 
@@ -141,7 +144,7 @@ repos:
   #     additional_dependencies: [black]
 
   - repo: https://github.com/pycqa/flake8
-    rev: "6.1.0"
+    rev: "7.0.0"
     hooks:
       - id: flake8
 
@@ -152,6 +155,9 @@ repos:
   #   - id: codespell
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: "v1.7.0"
+    rev: "v1.9.0"
     hooks:
       - id: mypy
+        verbose: true
+        args: [--show-error-codes]
+        additional_dependencies: ["pytest", "types-requests"]
