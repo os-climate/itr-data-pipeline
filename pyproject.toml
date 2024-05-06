@@ -1,7 +1,7 @@
 [project]
 name = "itr-data-pipeline"
-version = "v0.0.1"
-description = "ITR Data Pipeline."
+version = "v0.1.0"
+description = "Load Sectoral Decarbonization Approach (benchmarks) into Data Mesh"
 authors = [
   { name = "Michael Tiemann", email = "72577720+MichaelTiemannOSC@users.noreply.github.com" },
 ]
@@ -20,6 +20,7 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.10",
   "Topic :: Office/Business :: Financial",
   "Topic :: Scientific/Engineering",
@@ -86,7 +87,7 @@ test = ["pdm[pytest]", "pytest-cov"]
 tox = ["tox", "tox-pdm>=0.5"]
 docs = ["sphinx>=7.2.6", "sphinx-copybutton>=0.5.2"]
 dev = ["tox>=4.11.3", "tox-pdm>=0.7.0"]
-lint = ["pre-commit"]
+lint = ["pre-commit", "pyproject-flake8"]
 
 [tool.pytest.ini_options]
 testpaths = [

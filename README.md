@@ -29,8 +29,5 @@ data](https://utilitytransitionhub.rmi.org/data-download/), and some hand-curate
 
 Most importantly, this pipeline puts the financial, production, emissions, and other data into Trino so that the ITR can access it via the [Data Commons](https://github.com/os-climate/os_c_data_commons).
 
-If you have questions, please file [Issues](https://github.com/os-climate/itr-data-pipeline/issues). If you have answers, please contribute [Pull Requests](https://github.com/os-climate/itr-data-pipeline/pulls)!
-
----
-
-Project based on the [cookiecutter](https://drivendata.github.io/cookiecutter-data-science/) data science project template. #cookiecutterdatascience
+If you have questions, please file [Issues](https://github.com/os-climate/itr-data-pipeline/issues). If you have answers, please contribute [Pull
+Requests](https://github.com/os-climate/itr-data-pipeline/pulls)!

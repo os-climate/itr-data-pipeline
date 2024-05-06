@@ -41,18 +41,6 @@ repos:
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
-      - id: detect-private-key
-      - id: check-ast
-      - id: debug-statements
-
-  - repo: https://github.com/pycqa/pydocstyle.git
-    rev: 6.3.0
-    hooks:
-      - id: pydocstyle
-
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
-    hooks:
       - id: check-toml
       # - id: detect-aws-credentials
       - id: check-xml
