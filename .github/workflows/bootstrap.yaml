@@ -31,6 +31,7 @@ jobs:
         id: update-repository
         env:
           GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         # yamllint disable rule:line-length
         run: |
           #SHELLCODESTART
@@ -302,7 +303,7 @@ jobs:
           # If running shell code locally, continue to raise the PR
 
           # Reinstate exit on unbound variables
-          set -euo pipefail
+          set -euxo pipefail
 
           git status
           if ! (git commit -as -S -m "Chore: Update DevOps tooling from central repository [skip ci]" \
