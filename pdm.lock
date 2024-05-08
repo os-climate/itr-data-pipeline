@@ -5,7 +5,7 @@
 groups = ["default", "dev", "docs", "lint", "test", "tox"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:62c29764b396b9e438795e45a351a14f8bd37e5b2eb4cc3cbe56e63ec0bec400"
+content_hash = "sha256:4dfacb073480016f578bfa44e5ff3e3d8cf2f671ee0dcf9ff656e5d4b633222e"
 
 [[package]]
 name = "alabaster"
@@ -1525,7 +1525,7 @@ files = [
 
 [[package]]
 name = "openpyxl"
-version = "3.0.10"
+version = "3.1.2"
 requires_python = ">=3.6"
 summary = "A Python library to read/write Excel 2010 xlsx/xlsm files"
 groups = ["default"]
@@ -1533,8 +1533,8 @@ dependencies = [
     "et-xmlfile",
 ]
 files = [
-    {file = "openpyxl-3.0.10-py2.py3-none-any.whl", hash = "sha256:0ab6d25d01799f97a9464630abacbb34aafecdcaa0ef3cba6d6b3499867d0355"},
-    {file = "openpyxl-3.0.10.tar.gz", hash = "sha256:e47805627aebcf860edb4edf7987b1309c1b3632f3750538ed962bbcc3bd7449"},
+    {file = "openpyxl-3.1.2-py2.py3-none-any.whl", hash = "sha256:f91456ead12ab3c6c2e9491cf33ba6d08357d802192379bb482f1033ade496f5"},
+    {file = "openpyxl-3.1.2.tar.gz", hash = "sha256:a6f5977418eff3b2d5500d54d9db50c8277a368436f4e4f8ddb1be3422870184"},
 ]
 
 [[package]]

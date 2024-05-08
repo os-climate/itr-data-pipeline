@@ -31,7 +31,7 @@ dependencies = [
     "iam-units>=2022.10.27",
     "jupyterlab==4.1.6",
     "numpy==1.24.3",
-    "openpyxl==3.0.10",
+    "openpyxl>=3.1.0",
     "openscm-units==0.5.2",
     "orca==1.8",
     "osc-ingest-tools>=0.5.2",
