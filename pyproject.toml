@@ -110,7 +110,11 @@ extend-ignore = [
 [tool.mypy]
 ignore_missing_imports = true
 
-[tool.coverage.run]
-source = ["src"]
-omit = ["test/*"]
-# relative_files = true
+[tool.coverage]
+    [tool.coverage.run]
+    source = ["src"]
+    omit = ["test/*"]
+    # relative_files = true
+
+    [tool.coverage.report]
+    skip_empty = true
