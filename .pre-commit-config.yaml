@@ -71,10 +71,10 @@ repos:
       - id: black
       - id: black-jupyter
 
-  - repo: https://github.com/tomcatling/black-nb
-    rev: '0.7'
-    hooks:
-      - id: black-nb
+#   - repo: https://github.com/tomcatling/black-nb
+#     rev: '0.7'
+#     hooks:
+#       - id: black-nb
 
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.19.1
