@@ -28,13 +28,13 @@ classifiers = [
 ]
 
 dependencies = [
-    "iam-units>=2022.10.27",
+    "iam-units>=2023.9.12",
     "jupyterlab==4.1.6",
     "numpy==1.24.3",
     "openpyxl>=3.1.0",
-    "openscm-units==0.5.2",
+    "openscm-units>=0.5.4",
     "orca==1.8",
-    "osc-ingest-tools>=0.5.2",
+    "osc-ingest-tools>=0.5.3",
     "pandas>=2.1.0",
     "pip>=23.3.1",
     "Pint>=0.23",
@@ -54,6 +54,7 @@ dependencies = [
     "trino>=0.328.0",
     "wheel>=0.41.0",
     "xlrd==2.0.1",
+    "h5py>=3.11.0",
 ]
 
 [tool.setuptools.package-data]

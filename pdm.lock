@@ -5,7 +5,7 @@
 groups = ["default", "dev", "docs", "lint", "test", "tox"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:4dfacb073480016f578bfa44e5ff3e3d8cf2f671ee0dcf9ff656e5d4b633222e"
+content_hash = "sha256:432328d770cc56c6c4bad757105c19acdba1b79a79786257b097fc7d749eacd4"
 
 [[package]]
 name = "alabaster"
@@ -732,6 +732,23 @@ groups = ["default", "test"]
 files = [
     {file = "h11-0.14.0-py3-none-any.whl", hash = "sha256:e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761"},
     {file = "h11-0.14.0.tar.gz", hash = "sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"},
+]
+
+[[package]]
+name = "h5py"
+version = "3.11.0"
+requires_python = ">=3.8"
+summary = "Read and write HDF5 files from Python"
+groups = ["default"]
+dependencies = [
+    "numpy>=1.17.3",
+]
+files = [
+    {file = "h5py-3.11.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:1625fd24ad6cfc9c1ccd44a66dac2396e7ee74940776792772819fc69f3a3731"},
+    {file = "h5py-3.11.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:c072655ad1d5fe9ef462445d3e77a8166cbfa5e599045f8aa3c19b75315f10e5"},
+    {file = "h5py-3.11.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:77b19a40788e3e362b54af4dcf9e6fde59ca016db2c61360aa30b47c7b7cef00"},
+    {file = "h5py-3.11.0-cp310-cp310-win_amd64.whl", hash = "sha256:ef4e2f338fc763f50a8113890f455e1a70acd42a4d083370ceb80c463d803972"},
+    {file = "h5py-3.11.0.tar.gz", hash = "sha256:7b7e8f78072a2edec87c9836f25f34203fd492a4475709a18b417a33cfb21fa9"},
 ]
 
 [[package]]
@@ -1539,8 +1556,9 @@ files = [
 
 [[package]]
 name = "openscm-units"
-version = "0.5.2"
-summary = "OpenSCM-Units is a repository for handling of units related to simple climate modelling."
+version = "0.5.4"
+requires_python = ">=3.9,<4.0"
+summary = "Handling of units related to simple climate modelling."
 groups = ["default"]
 dependencies = [
     "globalwarmingpotentials",
@@ -1548,8 +1566,8 @@ dependencies = [
     "pint",
 ]
 files = [
-    {file = "openscm-units-0.5.2.tar.gz", hash = "sha256:a9e199ee3356cb5ce4f95a11b13d5411cd172c108bb76267be052070947e9aef"},
-    {file = "openscm_units-0.5.2-py2.py3-none-any.whl", hash = "sha256:3acf2f4da43ddc2fbe2f7f5d3ee468c39b65f621ff252f311b32ae4781f405ed"},
+    {file = "openscm_units-0.5.4-py3-none-any.whl", hash = "sha256:6da46c2eaf37d1fc4df768050d6222c96d053b2c409c94cc41449a3ebffcaf93"},
+    {file = "openscm_units-0.5.4.tar.gz", hash = "sha256:76429369e221084b6b41757369c536f852abc44679070f600ed72124fd58f9f9"},
 ]
 
 [[package]]
