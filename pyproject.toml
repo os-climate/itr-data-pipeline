@@ -5,7 +5,7 @@ description = "Load Sectoral Decarbonization Approach (benchmarks) into Data Mes
 authors = [
   { name = "Michael Tiemann", email = "72577720+MichaelTiemannOSC@users.noreply.github.com" },
 ]
-requires-python = "<3.11,>=3.10"
+requires-python = "<3.12,>=3.10"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 keywords = ["Climate", "ITR", "Finance"]
@@ -28,32 +28,30 @@ classifiers = [
 ]
 
 dependencies = [
-    "iam-units>=2022.10.27",
+    "iam-units>=2023.9.12",
     "jupyterlab==4.1.6",
     "numpy==1.24.3",
-    "openpyxl==3.0.10",
-    "openscm-units==0.5.2",
-    "orca==1.8",
-    "osc-ingest-tools>=0.5.2",
+    "openpyxl>=3.1.0",
+    "openscm-units>=0.5.4",
+    "osc-ingest-tools>=0.5.3",
     "pandas>=2.1.0",
     "pip>=23.3.1",
     "Pint>=0.23",
     "Pint-Pandas>=0.5",
     "psutil==5.9.5",
-    "pydantic>=2.3.0",
+    "pydantic<2.7,>=2.6",
     "pygithub==1.55",
     #  "pytest==7.3.2",
-    "python-dotenv==1.0.0",
     "setuptools>=65.7.0",
     "sphinx<8,>=6",
     "sphinx-autoapi>=2.0.1",
     "sphinx-autodoc-typehints",
     "sphinx-rtd-theme==1.3.0",
     "SQLAlchemy>=2.0.20",
-    "tables>=3.8.0",
     "trino>=0.328.0",
     "wheel>=0.41.0",
     "xlrd==2.0.1",
+    "rpds-py<0.18",
 ]
 
 [tool.setuptools.package-data]
@@ -83,7 +81,7 @@ lint = "pre-commit run --all-files"
 complete = { call = "tasks.complete:main", help = "Create autocomplete files for bash and fish" }
 
 [tool.pdm.dev-dependencies]
-test = ["pdm[pytest]", "pytest-cov"]
+test = ["nbmake", "pdm[pytest]", "pytest-cov"]
 tox = ["tox", "tox-pdm>=0.5"]
 docs = ["sphinx>=7.2.6", "sphinx-copybutton>=0.5.2"]
 dev = ["tox>=4.11.3", "tox-pdm>=0.7.0"]
@@ -93,7 +91,6 @@ lint = ["pre-commit", "pyproject-flake8"]
 testpaths = [
     "test/",
 ]
-addopts = "--cov --cov-report html --cov-report term-missing --cov-fail-under 70"
 
 [tool.black]
 line-length = 120
@@ -110,7 +107,11 @@ extend-ignore = [
 [tool.mypy]
 ignore_missing_imports = true
 
-[tool.coverage.run]
-source = ["src"]
-omit = ["test/*"]
-# relative_files = true
+[tool.coverage]
+    [tool.coverage.run]
+    source = ["src"]
+    omit = ["test/*"]
+    # relative_files = true
+
+    [tool.coverage.report]
+    skip_empty = true
