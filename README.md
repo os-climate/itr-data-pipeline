@@ -21,13 +21,13 @@ JSON source that can be ingested by the ITR tool. Presently 14 sectors are suppo
 - Chemical Industry
 - Textiles and Leather
 
-A logical (and welcomed) next step would be to curate this data within our Trino database (with proper metedata descriptions).
-
 The notebook [ITR-data-production](ITR-data-production.ipynb) synthesizes a set of corporate data from a variety of public sources, including [GLEIF](https://www.gleif.org/en) legal entity
 identifiers, [SEC financial disclosures](https://www.sec.gov/edgar/searchedgar/companysearch), [US Census data](https://www.census.gov/data.html), [RMI-curated production
 data](https://utilitytransitionhub.rmi.org/data-download/), and some hand-curated sources as well.
 
 Most importantly, this pipeline puts the financial, production, emissions, and other data into Trino so that the ITR can access it via the [Data Commons](https://github.com/os-climate/os_c_data_commons).
+
+A logical (and welcomed) next step would be to curate this data within our Trino database (with proper metedata descriptions for all data, not just RMI Utility Transition Hub data).
 
 If you have questions, please file [Issues](https://github.com/os-climate/itr-data-pipeline/issues). If you have answers, please contribute [Pull
 Requests](https://github.com/os-climate/itr-data-pipeline/pulls)!
