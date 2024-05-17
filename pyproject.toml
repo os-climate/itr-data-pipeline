@@ -30,7 +30,7 @@ classifiers = [
 dependencies = [
     "iam-units>=2023.9.12",
     "jupyterlab==4.1.6",
-    "numpy==1.24.3",
+    "numpy>=1.26",
     "openpyxl>=3.1.0",
     "openscm-units>=0.5.4",
     "orca==1.8",
@@ -55,6 +55,10 @@ dependencies = [
     "wheel>=0.41.0",
     "xlrd==2.0.1",
     "h5py>=3.11.0",
+    "hologram>=0.0.16",
+    "jinja2>=3.1.2",
+    "werkzeug>=3",
+    "dbt-core>=1.5",
 ]
 
 [tool.setuptools.package-data]

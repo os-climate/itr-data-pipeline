@@ -31,4 +31,3 @@ A logical (and welcomed) next step would be to curate this data within our Trino
 
 If you have questions, please file [Issues](https://github.com/os-climate/itr-data-pipeline/issues). If you have answers, please contribute [Pull
 Requests](https://github.com/os-climate/itr-data-pipeline/pulls)!
-
