@@ -15,7 +15,7 @@ The notebook [OECM-benchmark-ingest](notebooks/OECM-benchmark-ingest.ipynb) tran
 - Chemical Industry
 - Textiles and Leather
 
-The notebook [osc-ingest-rmi_utility_transition_hub](osc-ingest-rmi_utility_transition_hub.ipynb) follows the [Data Mesh pattern](https://github.com/opendatahub-io-contrib/datamesh-platform) to ingest and transform RMI utility data published in 2022, 2023, and 2024 (with data dating back to before 2019) into reference corporate data.  See instructions in the `dbt/rmi_transform/README.md` file for more information on activating the Data Mesh pattern.
+The notebook [osc-ingest-rmi_utility_transition_hub](osc-ingest-rmi_utility_transition_hub.ipynb) follows the [Data Mesh pattern](https://github.com/opendatahub-io-contrib/datamesh-platform) to ingest and transform RMI utility data published in 2022, 2023, and 2024 (with data dating back to before 2019) into reference corporate data. See instructions in the `dbt/rmi_transform/README.md` file for more information on activating the Data Mesh pattern.
 
 The notebook [ITR-data-production](ITR-data-production.ipynb) synthesizes a set of corporate data from a variety of public sources, including [GLEIF](https://www.gleif.org/en) legal entity identifiers, [SEC financial disclosures](https://www.sec.gov/edgar/searchedgar/companysearch), [US Census data](https://www.census.gov/data.html), [RMI-curated production data](https://utilitytransitionhub.rmi.org/data-download/), and some hand-curated sources as well.
 
