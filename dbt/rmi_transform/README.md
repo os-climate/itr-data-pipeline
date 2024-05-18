@@ -10,6 +10,7 @@ The principal ingestion code can be found in the [notebooks](notebooks) director
 2. dbt data transformation (documented here).
    a. Remember to connect dbt with `profiles.yml` (which defaults to ~/.dbt/profiles.yml)
    b. From CLI, `dbt run --profiles-dir=XYZZY` will dig profiles.yml out of XYZZY
+   c. With a profiles.yml file in a master directory above the OS-Climate repos, one can run `dbt run --profiles-dir=../.. --project-dir=dbt/rmi_transform` from the `itr-data-pipeline` repo directory.
    c. `dbt test --profiles-dir=XYZZY` currently does nothing
 
 Remember also that Jupyter Notebooks create checkpoint files, which disturbs `dbt` if they appear within the dbt folder hierarchy.
