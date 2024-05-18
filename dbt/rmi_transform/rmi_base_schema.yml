@@ -9,7 +9,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "*for a detailed description of ferc accounts, see https://www.ecfr.gov/cgi-bin/text-idx?sid=0694fb0720db0c9c2e974d3a661918d5&mc=true&node=pt18.1.101&rgn=div5\n**we include asset retirement costs as a positive component of electric rate base. these arcs are mostly offset by aros, which are negative components of electric rate base. both arcs and aros are included in the \"other\" asset category.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -29,7 +28,6 @@ models:
         description: "Earnings in the given year on the asset"
       - name: investment_value
         description: "Investments (capital expenditure) in the given year on the asset. "
-
   - name: customers_sales
     description: "Number of customers, MWh electricity sales, and revenues by customer type."
     config:
@@ -38,7 +36,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "all data fields in customer_sales collected directly from ferc form 1.\n\nto get total customers, sales, or revenues, add together values for all customer types.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -58,7 +55,6 @@ models:
         description: "Energy sold"
       - name: revenues
         description: "Revenues from electricity sales"
-
   - name: debt_equity_returns
     description: "Rate base, equity, debt, returns, earnings, interest expense, tax expense, and the rates of return used for earnings and revenue calculations." # yamllint disable-line rule:line-length
     config:
@@ -67,7 +63,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "rmi applied rate case data values starting in the year after the rate case completion date, and continuing until the next rate case would go into effect.\n\nall values in debt_equity_returns are either end of year values or values that apply to the entire year.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -123,7 +118,6 @@ models:
         description: "Interest expense to serve debt, estimated based on RMI bottoms-up estimate of rate base and equity ratio and rates of return from rate case data." # yamllint disable-line rule:line-length
       - name: interest_rate_authorized
         description: "Interest rate, estimated based on RMI bottoms-up estimate of rate base and equity ratio and rates of return from rate case data." # yamllint disable-line rule:line-length
-
   - name: emissions_targets
     description: "CO2 emissions and projections, as well as electricity generation and projections and comparison to RMI's 1.5C decarbonization pathway for the US electricity sector." # yamllint disable-line rule:line-length
     config:
@@ -132,7 +126,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "the rmi utility transition hub portal also has functionality to normalize each company's historical and target emissions or emissions intensity to 2020 values, which allows for a more even visual comparison between company targets.\n\nthe rmi utility transition hub portal includes a calculated metric of total projected emissions from 2020-2030 above the 1.5 c trajectory (which can be viewed as either a total emissions value in mmt, or as a %). this metric is used as a measure of how climate-aligned each utility or parent company is.\n\nsee the portal at https://utilitytransitionhub.rmi.org/portal/.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -170,7 +163,6 @@ models:
         description: "Projected Scope 1CO2 emissions intensity if the utility follows the US national-level emissions and net electricity generation trajectories from RMI's 1.5C decarbonization analysis." # yamllint disable-line rule:line-length
       - name: target_scope
         description: "Scope 1 (own generation) or Scope 3 (purchased generation)"
-
   - name: employees
     description: "Number of employees that work at large power plants, by technology, for each utility"
     config:
@@ -179,7 +171,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "all data fields in customer_sales collected directly from ferc form 1.\n\nto get total customers, sales, or revenues, add together values for all customer types.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -193,7 +184,6 @@ models:
         description: "Technology"
       - name: employees
         description: "Number of employees"
-
   - name: expenditure_bills_burden
     description: "Expenditure, average residential customer energy bill, and average residential customer energy burden for each utility by technology and customer group." # yamllint disable-line rule:line-length
     config:
@@ -202,7 +192,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "to calculate the total expenditure, bill, or burden for a customer group, add together values for all technologies.\n\nto aggregate bill or burden to multiple utilities (e.g. a parent company or region), (1) aggregate the values in expenditure_bills_burden to that level, (2) aggregate housing_units_income to the same level, (3) combine the two data files, (4) calculate bill and burden using the equations above in the methodology column for each metric.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -226,7 +215,6 @@ models:
         description: "Average (mean) monthly energy bill for residential customers"
       - name: burden
         description: "Average (mean) annual fraction of income spent on energy bills for residential customers"
-
   - name: housing_units_income
     description: "Number of housing units and income by customer group for each utility."
     config:
@@ -235,7 +223,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "to aggregate bill or burden to multiple utilities (i.e. a parent company or region), (1) aggregate the values in expenditure_bills_burden to that level, (2) aggregate housing_units_income to the same level, (3) combine the two data files, (4) calculate bill and burden using the equations above in the methodology column for each metric.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -253,7 +240,6 @@ models:
         description: "Number of occupied housing units (or households), adjusted to match number of utility customers."
       - name: income
         description: "Total annual  income for the group of housing units"
-
   - name: net_plant_balance
     description: "Original cost, accumulated depreciation, and remaining net plant balance of electric plants in service, by FERC classification." # yamllint disable-line rule:line-length
     config:
@@ -262,7 +248,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "this table includes all \"electric plant in service\" components, which is not comprehensive of a utility's entire balance sheet. for the total balance sheet, see assets_earnings.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -286,7 +271,6 @@ models:
         description: "Accumulated depreciation of asset retirement costs"
       - name: net_arc
         description: "Net remaining asset retirement costs"
-
   - name: operations_emissions_by_fuel
     description: "Generation, fuel consumption, and emissions of CO2, NOx, and SOx for each generator owned by each utility.\n\nWithin each generator, fuel consumption is differentiated by fuel type." # yamllint disable-line rule:line-length
     config:
@@ -295,7 +279,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "null",
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -359,7 +342,6 @@ models:
         description: "Net generation"
       - name: fuel_consumed
         description: "Energy content of fuel consumed"
-
   - name: operations_emissions_by_tech
     description: "Capacity, generation, capacity factor, fuel consumption, and emissions of CO2, NOx, and SOx for each generator owned by each utility.\n\nEach generator is identified by a single technology." # yamllint disable-line rule:line-length
     config:
@@ -368,7 +350,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "if aggregating capacity online at the end of the year as we do in the utility transition hub, use the \"year_end_capacity\" field instead of the \"capacity\" field.", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -430,7 +411,6 @@ models:
         description: "Net generation"
       - name: fuel_consumed
         description: "Energy content of fuel consumed"
-
   - name: revenue_by_tech
     description: "Revenues for each utility, by technology and component, for each utility."
     config:
@@ -439,7 +419,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "null",
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -459,7 +438,6 @@ models:
         description: "revenue from all customer classes"
       - name: revenue_residential
         description: "revenue from residential customer class"
-
   - name: state_policies
     description: "Policy data shown on the \"Policy & Regulations\" dashboard of the Utility Transition Hub Portal, by state. Includes status of securitzation, market indexing, and fuel pass through policies." # yamllint disable-line rule:line-length
     config:
@@ -468,7 +446,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "null",
       }
-
     columns:
       - name: state
         description: "State"
@@ -484,7 +461,6 @@ models:
         description: "Political party that the governor belongs to."
       - name: legislation_majority_party
         description: "Political party that controls the state legislature."
-
   - name: state_targets
     description: "Greenhouse gas (GHG) and renewable portfolio standard (RPS) data by state, including baseline, interim, and final target years." # yamllint disable-line rule:line-length
     config:
@@ -493,7 +469,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "null",
       }
-
     columns:
       - name: state
         description: "State"
@@ -509,7 +484,6 @@ models:
         description: "Whether the target_value refers to a greenhouse gas (GHG) reduction or a renewable portfolio standard (RPS)" # yamllint disable-line rule:line-length
       - name: target_value
         description: "The percentage reduction of GHGs or percentage of renewables required under an RPS"
-
   - name: utility_information
     description: "Utility identifiers such as name, ID numbers from various sources, and utility type. Includes connections from operating companies to parent companies." # yamllint disable-line rule:line-length
     config:
@@ -518,7 +492,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "the scope of utilities included in the rmi utility transition hub is comprehensive of ferc form 1 respondents.\n\nrelationships between utilities and parent companies were determined by rmi using company websites, and are current as of end of this dataset (2020).", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -548,7 +521,6 @@ models:
         description: "Whether or not the utility_id_eia is a duplicate of another utility_id_eia, because the respondent is either an old company that has sinced merged into a new FERC respondent or the respondent has the same name as another respondent but does not report any data. \n\nThis duplication is important to note when converting utility_id_eia to respondent_id; the lines where duplicate_utility_id_eia=True should be removed to avoid double-counting of a dataset." # yamllint disable-line rule:line-length
       - name: entity_id
         description: "XBRL-coded Utility ID from FERC"
-
   - name: utility_information_2023
     description: "Utility identifiers such as name, ID numbers from various sources, and utility type. Includes connections from operating companies to parent companies." # yamllint disable-line rule:line-length
     config:
@@ -557,7 +529,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "the scope of utilities included in the rmi utility transition hub is comprehensive of ferc form 1 respondents.\n\nrelationships between utilities and parent companies were determined by rmi using company websites, and are current as of end of this dataset (2020).", # yamllint disable-line rule:line-length
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -579,7 +550,6 @@ models:
         description: "Ticker symbol, or stock symbol, of the stock for ultimate parent company"
       - name: isin
         description: "International Securities Identification Number (ISIN), a code for the securities issued by the ultimate parent company" # yamllint disable-line rule:line-length
-
   - name: utility_state_map
     description: "A list of states that each utility operates in, including capacity owned in state, capacity operated in state, and energy sales in state." # yamllint disable-line rule:line-length
     config:
@@ -588,7 +558,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "null",
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
@@ -606,7 +575,6 @@ models:
         description: "Total nameplate capacity of plants operated by the utility in this state."
       - name: mwh_sales_in_state
         description: "Energy sales, in MWh, to all customer types."
-
   - name: utility_state_map_2023
     description: "A list of states that each utility operates in, including capacity owned in state, capacity operated in state, and energy sales in state." # yamllint disable-line rule:line-length
     config:
@@ -615,7 +583,6 @@ models:
         parent_schema: "rmi",
         Additional_notes: "null",
       }
-
     columns:
       - name: parent_name
         description: "Name of ultimate parent company"
