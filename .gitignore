@@ -104,7 +104,7 @@ docs/_build/
 
 # PyBuilder
 .pybuilder/
-target/
+/target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -183,3 +183,9 @@ test/.DS_Store
 
 # Cython debug symbols
 cython_debug/
+
+# dbt things
+dbt/rmi_transform/dbt_packages/
+dbt/rmi_transform/logs/
+dbt/rmi_transform/target/graph.gpickle
+dbt/rmi_transform/target/partial_parse.msgpack
