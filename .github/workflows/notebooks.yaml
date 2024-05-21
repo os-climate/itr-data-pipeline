@@ -50,9 +50,9 @@ jobs:
           pip install .
           pip install pytest nbmake
 
-      - name: "Test notebooks: pytest --nbmake"
+      - name: "Testing notebooks"
         run: |
-          echo "testing notebooks"
+          echo "Testing notebooks using: pytest --nbmake -- **/test_*.ipynb"
           pytest --nbmake -- **/test_*.ipynb
 
       - name: Upload logs as artefacts
