@@ -5,7 +5,7 @@
 groups = ["default", "dev", "test", "lint", "tox", "docs"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:8ab6a60dfabf355311d9f6fd05af7a9e71e6bccf45d3d570730af4e9ac0515dd"
+content_hash = "sha256:96a0eb4ea3b3ce5229cb7b71a0985b094980a35e48d9b7452833809d65b9b30a"
 
 [[package]]
 name = "agate"
@@ -696,6 +696,23 @@ dependencies = [
 files = [
     {file = "dbt_semantic_interfaces-0.5.1-py3-none-any.whl", hash = "sha256:b95ff3a6721dc30f6278cb84933d95e0ef27766e67eeb6bb41906242e77f7c9b"},
     {file = "dbt_semantic_interfaces-0.5.1.tar.gz", hash = "sha256:3a497abef1ba8112affdf804b26bfdcd5468ed95cc924b509068e18d371c7c4d"},
+]
+
+[[package]]
+name = "dbt-trino"
+version = "1.8.0"
+requires_python = ">=3.8"
+summary = "The trino adapter plugin for dbt (data build tool)"
+groups = ["default"]
+dependencies = [
+    "dbt-adapters<2.0,>=1.1.1",
+    "dbt-common<2.0,>=1.0.4",
+    "dbt-core>=1.8.0",
+    "trino~=0.328",
+]
+files = [
+    {file = "dbt-trino-1.8.0.tar.gz", hash = "sha256:7d92e2645072a7bbc72c0017c10b9723bab5b95fbc643c507a4365636f5dc5c0"},
+    {file = "dbt_trino-1.8.0-py3-none-any.whl", hash = "sha256:3e0c1ba23abdfcdf529a4bee6fdb26122e9f43d32dbb9d50b0c96c264fae1c18"},
 ]
 
 [[package]]
