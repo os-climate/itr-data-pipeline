@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."debt_equity_returns"
+    osc_datacommons_dev.rmi.debt_equity_returns
   security invoker
   as
     

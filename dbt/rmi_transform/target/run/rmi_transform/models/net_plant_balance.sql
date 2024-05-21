@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."net_plant_balance"
+    osc_datacommons_dev.rmi.net_plant_balance
   security invoker
   as
     

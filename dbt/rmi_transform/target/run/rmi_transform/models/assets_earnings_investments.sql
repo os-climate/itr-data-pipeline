@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."assets_earnings_investments"
+    osc_datacommons_dev.rmi.assets_earnings_investments
   security invoker
   as
     

@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."state_targets"
+    osc_datacommons_dev.rmi.state_targets
   security invoker
   as
     

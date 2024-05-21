@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."employees"
+    osc_datacommons_dev.rmi.employees
   security invoker
   as
     

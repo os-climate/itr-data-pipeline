@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."expenditure_bills_burden"
+    osc_datacommons_dev.rmi.expenditure_bills_burden
   security invoker
   as
     

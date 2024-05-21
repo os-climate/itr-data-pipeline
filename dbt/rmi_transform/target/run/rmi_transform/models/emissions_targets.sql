@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."emissions_targets"
+    osc_datacommons_dev.rmi.emissions_targets
   security invoker
   as
     

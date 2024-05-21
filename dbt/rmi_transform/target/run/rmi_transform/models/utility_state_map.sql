@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."utility_state_map"
+    osc_datacommons_dev.rmi.utility_state_map
   security invoker
   as
     

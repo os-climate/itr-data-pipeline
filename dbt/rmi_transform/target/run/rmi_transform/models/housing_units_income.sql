@@ -1,6 +1,6 @@
 
   create or replace view
-    "osc_datacommons_dev"."rmi"."housing_units_income"
+    osc_datacommons_dev.rmi.housing_units_income
   security invoker
   as
     
