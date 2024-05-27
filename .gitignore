@@ -1,5 +1,5 @@
 # Temporary devops repo
-.devops
+/.devops
 
 # Twine temporary files
 package-lock.json
@@ -103,7 +103,7 @@ instance/
 docs/_build/
 
 # PyBuilder
-.pybuilder/
+/.pybuilder/
 /target/
 
 # Jupyter Notebook
@@ -183,9 +183,3 @@ test/.DS_Store
 
 # Cython debug symbols
 cython_debug/
-
-# dbt things
-dbt/rmi_transform/dbt_packages/
-dbt/rmi_transform/logs/
-dbt/rmi_transform/target/graph.gpickle
-dbt/rmi_transform/target/partial_parse.msgpack
