@@ -1,6 +1,6 @@
 ---
 # Run all notebooks on every push
-name: "🗒️ Build notebooks"
+name: "🗒️ Notebook Testing"
 
 # yamllint disable-line rule:truthy
 on:
@@ -10,18 +10,38 @@ on:
 
 jobs:
 
+  validate-notebook-tests:
+    name: "Check for notebook tests"
+    if: github.event.pull_request.merged == false
+    permissions:
+      actions: 'write'
+    runs-on: ubuntu-latest
+    outputs:
+      proceed: ${{ steps.proceed.outputs.proceed }}
+    steps:
+      - name: "Checking for test files"
+        id: proceed
+        run: |
+          RESULT=(**/test_*.ipynb)
+          if [ -z "${RESULT[0]}" ]; then
+            echo "Found Jupyter Notebook tests"
+            echo "proceed=true" >> "$GITHUB_OUTPUT"
+          fi
+
   parse-project-metadata:
     name: "Determine Python versions"
+    needs: [validate-notebook-tests]
+    if: needs.validate-notebook-tests.outputs.proceed == 'true'
     # yamllint disable-line rule:line-length
     uses: os-climate/devops-reusable-workflows/.github/workflows/pyproject-toml-fetch-matrix.yaml@main
 
-  notebook-build:
-    name: "Build and test Notebooks"
-    needs: [parse-project-metadata]
+  notebook-tests:
+    name: "Test Jupyter Notebooks"
+    needs: [validate-notebook-tests, parse-project-metadata]
     runs-on: ubuntu-latest
     continue-on-error: true
     # Don't run when pull request is merged
-    if: github.event.pull_request.merged == false
+    if: github.event.pull_request.merged == 'false'
 
     strategy:
       fail-fast: false
@@ -50,7 +70,7 @@ jobs:
           pip install .
           pip install pytest nbmake
 
-      - name: "Testing notebooks"
+      - name: "Testing Jupyter Notebooks"
         run: |
           echo "Testing notebooks using: pytest --nbmake -- **/test_*.ipynb"
           pytest --nbmake -- **/test_*.ipynb
