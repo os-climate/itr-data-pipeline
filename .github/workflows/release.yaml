@@ -10,7 +10,8 @@ on:
   push:
     # Only invoked on release tag pushes
     branches:
-      - '**'
+      - 'main'
+      - 'master'
     tags:
       - 'v*.*.*'
 
