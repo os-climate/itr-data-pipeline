@@ -62,9 +62,19 @@ if "Steel" not in ureg:
     ureg.define("quadrillion = 1e15")
 
     i7y = Context("intensity")
-    i7y.add_transformation("Mscf CH4", "kg CO2e", lambda ureg, x: x * ureg("54.87 kg CO2") / ureg("Mscf CH4"))
-    i7y.add_transformation("g CH4", "g CO2e", lambda ureg, x: x * ureg("44 g CO2e") / ureg("16 g CH4"))
-    i7y.add_transformation("t Coal", "MJ", lambda ureg, x: x * ureg("29288 MJ") / ureg("t Coal"))
-    i7y.add_transformation("t Coal", "t CO2e", lambda ureg, x: x * ureg("2.86 t CO2e") / ureg("t Coal"))
+    i7y.add_transformation(
+        "Mscf CH4",
+        "kg CO2e",
+        lambda ureg, x: x * ureg("54.87 kg CO2") / ureg("Mscf CH4"),
+    )
+    i7y.add_transformation(
+        "g CH4", "g CO2e", lambda ureg, x: x * ureg("44 g CO2e") / ureg("16 g CH4")
+    )
+    i7y.add_transformation(
+        "t Coal", "MJ", lambda ureg, x: x * ureg("29288 MJ") / ureg("t Coal")
+    )
+    i7y.add_transformation(
+        "t Coal", "t CO2e", lambda ureg, x: x * ureg("2.86 t CO2e") / ureg("t Coal")
+    )
     ureg.add_context(i7y)
     ureg.enable_contexts("intensity")
