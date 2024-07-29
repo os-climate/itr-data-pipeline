@@ -33,7 +33,7 @@ jobs:
     needs: [validate-notebook-tests]
     if: needs.validate-notebook-tests.outputs.proceed == 'true'
     # yamllint disable-line rule:line-length
-    uses: os-climate/devops-reusable-workflows/.github/workflows/pyproject-toml-fetch-matrix.yaml@main
+    uses: os-climate/devops-reusable-workflows/.github/workflows/python-versions-matrix.yaml@main
 
   notebook-tests:
     name: "Test Jupyter Notebooks"
